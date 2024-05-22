@@ -140,7 +140,7 @@ def chat_main(user_input):
     while user_input != "terminar":
 
         # user_input = input("Ingrese mensaje: ")
-        user_input = user_input
+        user_input = input("You: ")
         store1.append("Human: " + user_input)
         palabras_clave_cita = ["cita", "citas", "appointment", "appointments"]
         iniciar_cita = encontrar_palabras_clave(user_input, palabras_clave_cita)
@@ -154,3 +154,4 @@ def chat_main(user_input):
         store1.append("AI: " + respuesta[-1].content)
         print(respuesta[-1].content)
 
+chat_main("")
