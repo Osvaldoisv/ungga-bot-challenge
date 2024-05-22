@@ -9,7 +9,7 @@ from pymongo import MongoClient                      # Para conectarnos con base
 
 # Conexión con base de datos
 client = MongoClient('localhost', 27017)
-database = client['Unga-Challenge']
+database = client['Ungga-Challenge']
 collection = database['citas']
 
 # Generamos un llm
@@ -136,7 +136,8 @@ def chat_main(user_input):
     store1.append("System: " + system_input)
     primer_mensaje = runnable.invoke(HumanMessage(system_input))
     store1.append("AI: " + primer_mensaje[-1].content)
-    print(primer_mensaje[-1].content)
+    print("AI: " + primer_mensaje[-1].content)
+    print("-"*50)
     
     # Aquí comienza el chat Loop, si el Usuario menciona "cita", se activará el agente de citas
     while user_input != "terminar":
@@ -154,6 +155,9 @@ def chat_main(user_input):
         #Al finalizar el chat de agendar citas, se puede seguir conversando con el Agente Conversacional #3
         respuesta = runnable.invoke(HumanMessage(user_input))
         store1.append("AI: " + respuesta[-1].content)
-        print(respuesta[-1].content)
+        
+        print("-"*50)
+        print("AI: " + respuesta[-1].content)
+        print("-"*50)
 
 chat_main("hola")
