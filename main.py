@@ -4,6 +4,9 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langgraph.graph import END, MessageGraph
 from langchain_community.llms.ollama import Ollama   # Importamos el LLM (Ollama)
 from pymongo import MongoClient                      # Para conectarnos con base de datos
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 # Conexión con base de datos
 client = MongoClient('localhost', 27017)
@@ -35,6 +38,26 @@ prompt_template = ChatPromptTemplate.from_messages(
     ])
 
 chain = prompt_template | llm
+
+app = FastAPI()
+
+origins = [
+    "http://localhost:3000",  # URL de tu frontend de Vite
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class UserInput(BaseModel):
+    input: str
+
+@app.post("/chat")
+
 
 # Función de Agente de citas #2 ------------------- Nos agendará una cita en la base de datos
 def chat(user_input):
