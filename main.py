@@ -7,7 +7,7 @@ from pymongo import MongoClient                      # Para conectarnos con base
 
 # Conexión con base de datos
 client = MongoClient('localhost', 27017)
-database = client['Ungga-Challenge']
+database = client['Unga-Challenge']
 collection = database['citas']
 
 # Generamos un llm
@@ -75,7 +75,7 @@ def chat(user_input):
             print("---------------out--------------")
 
             # Pregunta si queremos confirmar la cita
-            confirmacion = "Pregunta si quiero confirmar la cita. Si te digo que no, pregúntame qué quiero modificar, lo modificas y vuelves a retornar el diccionario. Si te respondo afirmativamente, retorna True, nada más que eso"
+            confirmacion = "Ahora que tienes los datos, pregúntame si quiero confirmar la cita. Si te digo que no, pregúntame qué quiero modificar, lo modificas y vuelves a retornar el diccionario. Si te respondo afirmativamente, debes retornar la palabra True, nada más"
             response = chain.invoke({"input": confirmacion, "chat_history": chat_history}) 
             chat_history.append(HumanMessage(content=confirmacion)) 
             chat_history.append(SystemMessage(content=response))
@@ -154,4 +154,4 @@ def chat_main(user_input):
         store1.append("AI: " + respuesta[-1].content)
         print(respuesta[-1].content)
 
-chat_main("")
+chat_main("hola")
