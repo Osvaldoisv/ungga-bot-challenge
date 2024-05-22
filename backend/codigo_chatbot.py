@@ -30,7 +30,7 @@ prompt_template = ChatPromptTemplate.from_messages(
             
             Solamente cuando hayas obtenido todo, retornarás los datos en forma de diccionario: 
             'nombre': <nombre>, 'email': <email>, 'cita': <horario de la cita en MM/DD/2024 HH:MM>
-            No retornes nada extra más que eso, solamente el diccionario, ninguna palabra más.""",
+            No retornes nada extra más que eso, solamente el diccionario, no agregues nada más""",
         ),
         MessagesPlaceholder(variable_name="chat_history"),
         ("human", "{input}"),
@@ -77,7 +77,7 @@ def chat(user_input):
             print("---------------out--------------")
 
             # Pregunta si queremos confirmar la cita
-            confirmacion = "Ahora que tienes los datos, pregúntame si quiero confirmar la cita. Si te digo que no, pregúntame qué quiero modificar, lo modificas y vuelves a retornar el diccionario. Si te respondo afirmativamente, debes retornar la palabra True, nada más"
+            confirmacion = "Ahora que tienes los datos, pregúntame si quiero confirmar la cita. Si te digo que no, pregúntame qué quiero modificar, lo modificas y vuelves a retornar el diccionario y nada más. Si te respondo afirmativamente, debes retornar la palabra True, nada más"
             response = chain.invoke({"input": confirmacion, "chat_history": chat_history}) 
             chat_history.append(HumanMessage(content=confirmacion)) 
             chat_history.append(SystemMessage(content=response))
